@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
 
+:root {
+  --primary: #fad893;
+  --secondary: #FBC14B;
+  --bg: #BCE7FD;
+  --accent: #BA274A;
+  --text: #FE6474;
+}
+
 .poetsen-one-regular {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
@@ -8,5 +16,55 @@
 
 .App-header{
   font-family: "Poetsen One", sans-serif;
+  color: #FE6474; /* Pinkish color */
+  font-size: 5rem; /* Adjusted for better visibility */
+}
+
+.App{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column; /* stacks elements vertically */
+  align-items: center;    /* horizontally center each element */
+  padding-bottom: 4px;
+  background-color: #BCE7FD;
+}
+
+.button-custom {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #FBC14B; 
+  border-radius: 30px; /* Rounded corners */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 200px;
+}
+.button-custom:hover {
+  background-color: #d09f3f; /* Darker green on hover */
+  translate: translateY(-2px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.select-custom{ 
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  border-radius: 30px !important;
+  background-color: var(--primary) !important; 
+  border: none !important;
+  color: var(--text) !important;
+  padding: 15px 32px !important;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
 }
 
