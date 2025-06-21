@@ -1,38 +1,68 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+:root {
+  --primary: #FBC14B;
+  --secondary: #B0DB43;
+  --bg: #BCE7FD;
+  --accent: #BA274A;
+  --text: #FE6474;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.poetsen-one-regular {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-header{
+  font-family: "Poetsen One", sans-serif;
+  color: #FE6474; /* Pinkish color */
+  font-size: 5rem; /* Adjusted for better visibility */
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Home{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column; /* stacks elements vertically */
+  align-items: center;    /* horizontally center each element */
+  padding-bottom: 4px;
+  background-color: #BCE7FD;
 }
 
-.App-link {
-  color: #61dafb;
+.button-custom {
+  font-family: "Poetsen One", sans-serif !important;
+  font-style: normal;
+  background-color: var(--secondary) !important; 
+  border-radius: 30px !important; /* Rounded corners */
+  border: none !important;
+  color: var(--text) !important;
+  padding: 15px 32px !important;
+  text-align: center;
+  font-size: 16px !important;
+  width: 200px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button-custom:hover {
+  background-color: #9fcf83; /* Darker green on hover */
+  translate: translateY(-2px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.select-custom{ 
+  font-family: "Poetsen One", sans-serif;
+  border-radius: 30px !important;
+  background-color: var(--primary) !important; 
+  border: none !important;
+  color: var(--text) !important;
+  padding: 15px 32px !important;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
