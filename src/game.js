@@ -1,17 +1,25 @@
 import './App.css';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+const emojiThemes = { // Define color themes with arrays of colors
+  Food: ['🍩', '🍔', '🍟', '🌭', '🍕', '🌮'], 
+  Music: ['🎶', '🎧', '🎸', '🥁', '🎹', '🎷'],
+};
 
 function Game() {
-  const [gameStarted, setGameStarted] = useState(false);
+  const [score, setScore] = useState(0);
+  const location = useLocation();
+  const { theme, difficulty } = location.state || {};
 
-  const startGame = () => {
-    setGameStarted(true);
-  };
 
   return (
-    <div className="Game">
-      prnt(hello wordl~ )
+    <div className='Game'>
+      <p>Theme: {theme}</p>
+      <p>Difficulty: {difficulty}</p>
+
     </div>
+
   );
 }
 
