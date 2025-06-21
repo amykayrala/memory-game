@@ -10,7 +10,7 @@ function Game() {
 
   return (
     <div className="Game">
-      
+      prnt(hello wordl~ )
     </div>
   );
 }
