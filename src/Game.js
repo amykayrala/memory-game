@@ -12,43 +12,105 @@ const emojiThemes = { // Define color themes with arrays of colors
   Music: ['🎶', '🎧', '🎸', '🥁', '🎹', '🎷'],
 };
 
+const emojiSpeed ={
+  Easy : 500,
+  Medium : 1000,
+  Hard : 1500
+}
+
 
 function Game() {
   const [isGameOver, setIsGameOver] = useState(false);
-  const [targetEmoji, setTargetEmoji] = useState('null');
-
+  const [targetEmoji, setTargetEmoji] = useState(null);
   const location = useLocation();
   const { theme, difficulty } = location.state || {};
-
-  // settings popup
+  const emojis = emojiThemes[theme];
+  const speed = emojiSpeed[difficulty];
+  const themeChosen = `${theme}-theme`;
+  const [fallingEmojis, setFallingEmojis] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
 
-  useEffect(() => {
-    setTargetEmoji(getRandomEmoji(emojis));;
-  }, []);
 
-  const emojis = emojiThemes[theme];
-  const themeChosen = `${theme}-theme`;
-  // const themeChosen = `${difficulty}-theme`;
 
   function getRandomEmoji(emojis) { // Function to get a random emoji from the provided array
     return emojis[Math.floor(Math.random() * emojis.length)];
   };
 
   const [score, setScore] = useState(0);
-  const [highscore, setHscore] = useState(() => {
-      const storedHscore = localStorage.getItem('highScore');
-        return storedHscore ? parseInt(storedHscore, 10) : 0;
+  const [highscore, setHighscore] = useState(() => {
+      const storedHighscore = localStorage.getItem('highScore');
+        return storedHighscore ? parseInt(storedHighscore, 10) : 0;
   });
 
+  const handleEmojiClick  = (emojiObj) => {
+    if (emojiObj.emoji == targetEmoji ){
+      setScore(score+1)
+      setFallingEmojis(prev => prev.filter(e => e.id !== emojiObj.id));
+      if (score >= highscore) {
+        setHighscore(score);
+      }
+
+    } else {
+      setIsGameOver(true)
+    }
+  }
+
+  function resetGame() { // Function to reset the game state
+    setScore(0); // Reset the score
+    setIsGameOver(false);
+  };
+
+
   useEffect(() => {
-    setTargetEmoji(emojis[Math.floor(Math.random() * emojis.length)]);;
+    setTargetEmoji(emojis[Math.floor(Math.random() * emojis.length)]);
   }, []);
+
+  useEffect(() => {
+    const spawn = setInterval(() => {
+      const newEmoji = {
+        id: Date.now(),
+        emoji: getRandomEmoji(emojis),
+        x: Math.random() * 90, // percent
+        y: 0
+      };
+      setFallingEmojis(prev => [...prev, newEmoji]);
+    }, 1000);
+  
+    return () => clearInterval(spawn);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFallingEmojis(prev =>
+        prev
+          .map(e => ({ ...e, y: e.y + 2 })) // move down by 2%
+          .filter(e => e.y < 100)          // remove if off-screen
+      );
+    }, 50);
+  
+    return () => clearInterval(interval);
+  }, []);
+
   
   return (
-    
-    // main game logic
-    
+    <div className={`Game ${themeChosen}`}>
+      {fallingEmojis.map(e => (
+    <div
+    key={e.id}
+    onClick={() => handleEmojiClick(e)}
+    style={{
+      position: 'absolute',
+      top: `${e.y}%`,
+      left: `${e.x}%`,
+      fontSize: '4rem',
+      cursor: 'pointer',
+      userSelect: 'none',
+      transition: 'top 0.05s linear',
+    }}
+  >
+    {e.emoji}
+  </div>
+))}
 
     // score + high score + catch message + settings button
     <div className={`Game ${themeChosen}`}>
@@ -61,7 +123,6 @@ function Game() {
           <Col className="text-center">
             <div className='score' style={{fontSize: '3rem'}}> Catch the {targetEmoji} !</div>
           </Col>
-
           <Col className="text-end">
             <span onClick={() => setShowSettings(true)} style={{ cursor: 'pointer' }}>
               <FiSettings style={{ fontSize: '2rem', marginLeft: '10px', marginTop: '10px' }} />
