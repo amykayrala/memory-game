@@ -94,26 +94,24 @@ function Game() {
   
   return (
     <div className={`Game ${themeChosen}`}>
-      {fallingEmojis.map(e => (
-    <div
-    key={e.id}
-    onClick={() => handleEmojiClick(e)}
-    style={{
-      position: 'absolute',
-      top: `${e.y}%`,
-      left: `${e.x}%`,
-      fontSize: '4rem',
-      cursor: 'pointer',
-      userSelect: 'none',
-      transition: 'top 0.05s linear',
-    }}
-  >
-    {e.emoji}
-  </div>
-))}
+        {fallingEmojis.map(e => (
+            <div
+                key={e.id}
+                onClick={() => handleEmojiClick(e)}
+                style={{
+                position: 'absolute',
+                top: `${e.y}%`,
+                left: `${e.x}%`,
+                fontSize: '4rem',
+                cursor: 'pointer',
+                userSelect: 'none',
+                transition: 'top 0.05s linear',
+                }}
+            >
+                {e.emoji}
+            </div>
+            ))}
 
-    // score + high score + catch message + settings button
-    <div className={`Game ${themeChosen}`}>
       <Container fluid>
         <Row className="justify-content-md-center">
           <Col className="text-start">
