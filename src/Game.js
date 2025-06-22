@@ -79,13 +79,6 @@ function Game() {
               <FiSettings style={{ fontSize: '2rem', marginLeft: '10px', marginTop: '10px' }} />
             </span>
           </Col>
-          <SettingsModal
-            show={showSettings}
-            onClose={() => setShowSettings(false)}
-            theme={theme}
-            difficulty={difficulty}
-          />
-            
         </Row>
       </Container>
    </div>
