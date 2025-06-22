@@ -51,7 +51,7 @@ function Home() {
   };
 
   return (
-    <div className="Home">
+    <div className="Home" style={{ pointerEvents: 'none' }}>
 
       <div className="blast-container">
           {blastEmojis.map(({ id, emoji, x, y, duration }) => (
@@ -67,27 +67,30 @@ function Home() {
               {emoji}
             </span>
           ))}
-      </div>
+      </div >
 
-        <h1 className="App-header" style={{ pointerEvents: 'none' }}>Emoji </h1>
-        <h1 className="App-header" style={{ pointerEvents: 'none' }}>Blast</h1>
+        <h1 className="App-header">Emoji </h1>
+        <h1 className="App-header">Blast</h1>
 
         <br></br>
+        <div  style={{ pointerEvents: 'auto' }}>
+          <Form.Select value={theme} onChange={handleChangeTheme} className="select-custom" aria-label="Theme select" style={{width: '200px', marginBottom: '1rem' }}>
+            <option disabled value="Theme">Theme</option>
+            <option value="Food">Food Theme</option>
+            <option value="Music">Music Theme</option>
+          </Form.Select>
+          <Form.Select value={difficulty} onChange={handleChangeDifficulty} className="select-custom" aria-label="Difficulty select" style={{width: '200px' }}>
+            <option disabled value="Difficulty">Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </Form.Select>
+
+          <br></br>
+          <Button onClick={handleButtonClick} disabled={theme === 'Theme' || difficulty === 'Difficulty'} className="button-custom">Start Game</Button>
+
+        </div>
         
-        <Form.Select value={theme} onChange={handleChangeTheme} className="select-custom" aria-label="Theme select" style={{width: '200px', marginBottom: '1rem' }}>
-          <option disabled value="Theme">Theme</option>
-          <option value="Food">Food Theme</option>
-          <option value="Music">Music Theme</option>
-        </Form.Select>
-        <Form.Select value={difficulty} onChange={handleChangeDifficulty} className="select-custom" aria-label="Difficulty select" style={{width: '200px' }}>
-          <option disabled value="Difficulty">Difficulty</option>
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Hard">Hard</option>
-        </Form.Select>
-
-        <br></br>
-        <Button onClick={handleButtonClick} disabled={theme === 'Theme' || difficulty === 'Difficulty'} className="button-custom">Start Game</Button>
     </div>
   );
 }

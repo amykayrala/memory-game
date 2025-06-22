@@ -147,7 +147,7 @@ function Game() {
           <Col className="text-center">
             <div className='score' style={{fontSize: '3rem'}}> Catch the {targetEmoji} !</div>
           </Col>
-          <Col className="text-end">
+          <Col className="text-end" style={{ pointerEvents: 'auto' }}>
             <span onClick={() => setShowSettings(true)} style={{ cursor: 'pointer' }}>
               <FiSettings style={{ fontSize: '2rem', marginLeft: '10px', marginTop: '10px' }} />
             </span>
