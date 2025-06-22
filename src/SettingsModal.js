@@ -19,14 +19,23 @@ function SettingsModal({ show, onClose, theme, difficulty }) {
     navigate('/');
   };
 
+  const handleChangeTheme  = (e) => {
+    if (e.target.innerText == targetEmoji ){
+      setScore(score+1)
+
+    } else {
+      setIsGameOver(false)
+    }
+  }
+  
   return (
-    <Modal show={show} onHide={onClose} centered>
+   <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
         <Modal.Title className="App-header">Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Button className="button-custom" onClick={handleRepeatGame}>
-            Repeat Game
+            Start Over
         </Button>
         <Button className="button-custom" onClick={handleMainMenu}>
             Main Menu

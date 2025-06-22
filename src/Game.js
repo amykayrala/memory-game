@@ -31,7 +31,7 @@ function Game() {
   const themeChosen = `${theme}-theme`;
   // const themeChosen = `${difficulty}-theme`;
 
-  function getRandomEmoji(emojis) { // Function to get a random color from the provided array
+  function getRandomEmoji(emojis) { // Function to get a random emoji from the provided array
     return emojis[Math.floor(Math.random() * emojis.length)];
   };
 
@@ -40,20 +40,6 @@ function Game() {
       const storedHscore = localStorage.getItem('highScore');
         return storedHscore ? parseInt(storedHscore, 10) : 0;
   });
-
-  const handleChangeTheme  = (e) => {
-    if (e.target.innerText == targetEmoji ){
-      setScore(score+1)
-
-    } else {
-      setIsGameOver(false)
-    }
-  }
-
-  /*function resetGame() { // Function to reset the game state
-    setScore(0); // Reset the score
-    setIsGameOver(false);
-  };*/
 
   useEffect(() => {
     setTargetEmoji(emojis[Math.floor(Math.random() * emojis.length)]);;
