@@ -50,19 +50,21 @@ function Game() {
     }
   }
 
-  function resetGame() { // Function to reset the game state
+  /*function resetGame() { // Function to reset the game state
     setScore(0); // Reset the score
     setIsGameOver(false);
-  };
-
+  };*/
 
   useEffect(() => {
     setTargetEmoji(emojis[Math.floor(Math.random() * emojis.length)]);;
   }, []);
-
   
   return (
     
+    // main game logic
+    
+
+    // score + high score + catch message + settings button
     <div className={`Game ${themeChosen}`}>
       <Container fluid>
         <Row className="justify-content-md-center">
