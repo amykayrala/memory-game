@@ -19,14 +19,14 @@ function SettingsModal({ show, onClose, theme, difficulty }) {
     navigate('/');
   };
 
-  const handleChangeTheme  = (e) => {
+  /*const handleChangeTheme  = (e) => {
     if (e.target.innerText == targetEmoji ){
       setScore(score+1)
 
     } else {
       setIsGameOver(false)
     }
-  }
+  }*/
   
   return (
    <Modal show={show} onHide={onClose} centered>
