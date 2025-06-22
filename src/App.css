@@ -30,6 +30,7 @@
   align-items: center;    /* horizontally center each element */
   padding-bottom: 4px;
   background-color: #BCE7FD;
+  overflow: hidden;
 }
 
 .button-custom {

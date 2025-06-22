@@ -15,7 +15,7 @@ function SettingsModal({ show, onClose, onReset}) {
       <Modal.Header closeButton>
         <Modal.Title className="App-header">Settings</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="text-center">
         <Button className="button-custom" onClick={onReset}>
             Start Over
         </Button>

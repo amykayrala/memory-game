@@ -70,21 +70,23 @@ function Game() {
 
   useEffect(() => {
     if (isGameOver) return;
+    if(showSettings) return;
     const spawn = setInterval(() => {
       const newEmoji = {
         id: Date.now(),
         emoji: getRandomEmoji(emojis),
-        x: Math.random() * 90, // percent
+        x: Math.random() * 80 + 5, // percent
         y: 0
       };
       setFallingEmojis(prev => [...prev, newEmoji]);
     }, spawnRate);
   
     return () => clearInterval(spawn);
-  }, [spawnRate, isGameOver, emojis]);
+  }, [spawnRate, isGameOver, emojis, showSettings]);
 
   useEffect(() => {
     if (isGameOver) return;
+    if(showSettings) return;
     const interval = setInterval(() => {
         setFallingEmojis(prev => {
             const updated = prev.map(e => ({ ...e, y: e.y + speed }));
@@ -98,7 +100,7 @@ function Game() {
     }, 50);
   
     return () => clearInterval(interval);
-  }, [speed, targetEmoji, isGameOver]);
+  }, [speed, targetEmoji, isGameOver, showSettings]);
 
   useEffect(() => {
     if (isGameOver) {

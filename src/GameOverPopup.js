@@ -29,7 +29,7 @@ function GameOverModal({ score, highScore, show, onClose, onReset }) {
       <Modal.Header>
         <Modal.Title className="App-header">☠️ Game Over</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="text-center">
         <p className="poetsen-one-regular text-center">Your Score: {score}</p>
         <p className="poetsen-one-regular text-center">High Score: {highScore}</p>
         <Button className="button-custom" onClick={onReset}>

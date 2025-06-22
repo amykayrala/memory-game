@@ -53,7 +53,7 @@ function Home() {
   return (
     <div className="Home" style={{ pointerEvents: 'none' }}>
 
-      <div className="blast-container">
+      <div className="blast-container"  >
           {blastEmojis.map(({ id, emoji, x, y, duration }) => (
             <span
               key={id}
