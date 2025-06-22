@@ -16,7 +16,7 @@ const emojiThemes = { // Define color themes with arrays of colors
 const emojiSpeed ={
   Easy : {speed : 1, spawnRate: 1500},
   Medium : {speed : 2, spawnRate: 1000},
-  Hard : {speed : 3, spawnRate: 500},
+  Hard : {speed : 2.5, spawnRate: 500},
 }
 
 
@@ -69,6 +69,7 @@ function Game() {
   }, []);
 
   useEffect(() => {
+    if (isGameOver) return;
     const spawn = setInterval(() => {
       const newEmoji = {
         id: Date.now(),
@@ -80,9 +81,10 @@ function Game() {
     }, spawnRate);
   
     return () => clearInterval(spawn);
-  }, [spawnRate]);
+  }, [spawnRate, isGameOver, emojis]);
 
   useEffect(() => {
+    if (isGameOver) return;
     const interval = setInterval(() => {
         setFallingEmojis(prev => {
             const updated = prev.map(e => ({ ...e, y: e.y + speed }));
@@ -96,7 +98,7 @@ function Game() {
     }, 50);
   
     return () => clearInterval(interval);
-  }, [speed]);
+  }, [speed, targetEmoji, isGameOver]);
 
   useEffect(() => {
     if (isGameOver) {
