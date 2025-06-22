@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FiSettings } from 'react-icons/fi';
+import SettingsModal from './SettingsModal';
 
 const emojiThemes = { // Define color themes with arrays of colors
   Food: ['🍩', '🍔', '🍟', '🌭', '🍕', '🌮'], 
@@ -25,6 +26,9 @@ function Game() {
   const emojis = emojiThemes[theme]
   const [targetEmoji, setTargetEmoji] = useState('null');
 
+  // settings popup
+  const [showSettings, setShowSettings] = useState(false);
+
   useEffect(() => {
     setTargetEmoji(getRandomEmoji(emojis));;
   }, []);
@@ -37,6 +41,7 @@ function Game() {
   });
   
   return (
+    
     <div className={`Game ${themeChosen}`}>
       <Container fluid>
         <Row className="justify-content-md-center">
@@ -47,16 +52,22 @@ function Game() {
           <Col className="text-center">
             <div className='score' style={{fontSize: '3rem'}}> Catch the {targetEmoji} !</div>
           </Col>
+
           <Col className="text-end">
-            <FiSettings style={{fontSize: '2rem', marginLeft: '10px', marginTop: '10px'}}/>
-
+            <span onClick={() => setShowSettings(true)} style={{ cursor: 'pointer' }}>
+              <FiSettings style={{ fontSize: '2rem', marginLeft: '10px', marginTop: '10px' }} />
+            </span>
           </Col>
+          <SettingsModal
+            show={showSettings}
+            onClose={() => setShowSettings(false)}
+            theme={theme}
+            difficulty={difficulty}
+          />
+            
         </Row>
-      </Container>
-        
-
-
-    </div>
+       </Container>
+   </div>
 
   );
 }
