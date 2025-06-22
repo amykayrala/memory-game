@@ -12,19 +12,13 @@ const emojiThemes = { // Define color themes with arrays of colors
   Music: ['🎶', '🎧', '🎸', '🥁', '🎹', '🎷'],
 };
 
-function getRandomEmoji(emojis) { // Function to get a random color from the provided array
-  return emojis[Math.floor(Math.random() * emojis.length)];
-}
 
 function Game() {
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [targetEmoji, setTargetEmoji] = useState('null');
+
   const location = useLocation();
   const { theme, difficulty } = location.state || {};
-
-  const themeChosen = `${theme}-theme`;
-   // const themeChosen = `${difficulty}-theme`;
-
-  const emojis = emojiThemes[theme]
-  const [targetEmoji, setTargetEmoji] = useState('null');
 
   // settings popup
   const [showSettings, setShowSettings] = useState(false);
@@ -33,12 +27,39 @@ function Game() {
     setTargetEmoji(getRandomEmoji(emojis));;
   }, []);
 
+  const emojis = emojiThemes[theme];
+  const themeChosen = `${theme}-theme`;
+  // const themeChosen = `${difficulty}-theme`;
+
+  function getRandomEmoji(emojis) { // Function to get a random color from the provided array
+    return emojis[Math.floor(Math.random() * emojis.length)];
+  };
 
   const [score, setScore] = useState(0);
   const [highscore, setHscore] = useState(() => {
       const storedHscore = localStorage.getItem('highScore');
         return storedHscore ? parseInt(storedHscore, 10) : 0;
   });
+
+  const handleChangeTheme  = (e) => {
+    if (e.target.innerText == targetEmoji ){
+      setScore(score+1)
+
+    } else {
+      setIsGameOver(false)
+    }
+  }
+
+  function resetGame() { // Function to reset the game state
+    setScore(0); // Reset the score
+    setIsGameOver(false);
+  };
+
+
+  useEffect(() => {
+    setTargetEmoji(emojis[Math.floor(Math.random() * emojis.length)]);;
+  }, []);
+
   
   return (
     
@@ -66,7 +87,7 @@ function Game() {
           />
             
         </Row>
-       </Container>
+      </Container>
    </div>
 
   );
