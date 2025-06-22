@@ -11,9 +11,8 @@ function Home() {
   const navigate = useNavigate();
 
   // ----------- EMOJI BLAST ---------------
-  const emojis = ['😎', '😋', '🥳', '🤠', '😛', '😀'];
-
-  // create an array of emojis for the blast effect
+  const emojis = ['😎', '😋', '🥳', '🤠', '😛', '😀']; // array of emojis
+  
   // each emoji will have a random position, duration, and emoji type
   const createBlastEmojis = () => {
     return Array.from({ length: 20 }).map((_, i) => {
