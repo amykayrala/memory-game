@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FiSettings } from 'react-icons/fi';
+import SettingsModal from './SettingsModal';
 
 const emojiThemes = { // Define color themes with arrays of colors
   Food: ['🍩', '🍔', '🍟', '🌭', '🍕', '🌮'], 
@@ -27,6 +28,9 @@ function Game() {
   const speed = emojiSpeed[difficulty];
   const themeChosen = `${theme}-theme`;
   const [fallingEmojis, setFallingEmojis] = useState([]);
+  const [showSettings, setShowSettings] = useState(false);
+
+
 
   function getRandomEmoji(emojis) { // Function to get a random emoji from the provided array
     return emojis[Math.floor(Math.random() * emojis.length)];
@@ -107,6 +111,9 @@ function Game() {
     {e.emoji}
   </div>
 ))}
+
+    // score + high score + catch message + settings button
+    <div className={`Game ${themeChosen}`}>
       <Container fluid>
         <Row className="justify-content-md-center">
           <Col className="text-start">
@@ -117,16 +124,23 @@ function Game() {
             <div className='score' style={{fontSize: '3rem'}}> Catch the {targetEmoji} !</div>
           </Col>
           <Col className="text-end">
-            <FiSettings style={{fontSize: '2rem', marginLeft: '10px', marginTop: '10px'}}/>
-
+            <span onClick={() => setShowSettings(true)} style={{ cursor: 'pointer' }}>
+              <FiSettings style={{ fontSize: '2rem', marginLeft: '10px', marginTop: '10px' }} />
+            </span>
           </Col>
         </Row>
-      </Container>
 
-    </div>
+        <SettingsModal
+          show={showSettings}
+          onClose={() => setShowSettings(false)}
+          theme={theme}
+          difficulty={difficulty}
+        />
+
+      </Container>
+   </div>
 
   );
 }
 
 export default Game;
-

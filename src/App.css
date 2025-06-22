@@ -44,6 +44,7 @@
   font-size: 16px !important;
   width: 200px !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  margin: 3% !important;
 }
 
 .button-custom:hover {
@@ -64,5 +65,74 @@
   font-size: 16px;
   margin: 4px 2px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Food-theme{
+  background-repeat: repeat;
+  background-image: url('images/picnic.jpeg');
+  background-size: 500px 500px;
+  color: var(--text);
+  height: 100vh;
+}
+
+.Music-theme{
+  /*background-image: url('images/musicbackground.jpeg');
+  background-size: cover;*/
+  background: #BCE7FD;
+  background: linear-gradient(175deg, rgb(113, 169, 233) 50%, rgba(188, 231, 253, 1) 100%);
+  color: var(--bg);
+  height: 100vh;
+}
+
+.score{
+  font-family: "Poetsen One", sans-serif;
+  font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-left: 1%;
+  padding-top: 1%;
+}
+
+.highscore{
+  font-family: "Poetsen One", sans-serif;
+  font-size: 1rem;
+  padding-left: 1%;
+}
+
+/* Emoji blast effect */
+.blast-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.blast-emoji {
+  position: absolute;
+  top: 75px; 
+  left: 50%;
+  font-size: 3rem;
+  opacity: 0;
+  animation: blast-fall forwards ease-out;
+}
+
+@keyframes blast-fall {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(var(--x), var(--y)) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), calc(var(--y) + 300px)) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.emoji{
+  font-size: 3rem;
 }
 
