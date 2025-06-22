@@ -3,23 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-function GameOverModal({ score, onPlayAgain, onMainMenu }) {
-  const [highScore, setHighScore] = useState(0);
+function GameOverModal({ score, highScore, show, onClose, onReset }) {
+  //const [highScore, setHighScore] = useState({score});
   const navigate = useNavigate();
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [score, setScore] = useState(0);
-
-  const handleRepeatGame = () => {
-    navigate('/game', { state: { theme, difficulty } });
-    setScore(0); // reset score to 0
-    setIsGameOver(false);
-    onClose(); // close the modal after resetting the game
-  };
 
   const handleMainMenu = () => {
     navigate('/');
   };
 
+  /*
   useEffect(() => {
     const stored = parseInt(localStorage.getItem('highScore')) || 0; // default to 0 if no high score is stored
     
@@ -30,17 +22,17 @@ function GameOverModal({ score, onPlayAgain, onMainMenu }) {
     } else {
       setHighScore(stored); // keep existing high score
     }
-  }, [score]);
+  }, [score]); */
 
   return (
     <Modal show={show} onHide={onClose} centered>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title className="App-header">☠️ Game Over</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p className="poetsen-one-regular text-center">Your Score: {score}</p>
         <p className="poetsen-one-regular text-center">High Score: {highScore}</p>
-        <Button className="button-custom" onClick={handleRepeatGame}>
+        <Button className="button-custom" onClick={onReset}>
             Play Again
         </Button>
         <Button className="button-custom" onClick={handleMainMenu}>

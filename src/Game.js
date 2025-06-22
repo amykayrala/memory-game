@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FiSettings } from 'react-icons/fi';
 import SettingsModal from './SettingsModal';
+import GameOverModal from './GameOverPopup'
 
 const emojiThemes = { // Define color themes with arrays of colors
   Food: ['🍩', '🍔', '🍟', '🌭', '🍕', '🌮'], 
@@ -13,9 +14,9 @@ const emojiThemes = { // Define color themes with arrays of colors
 };
 
 const emojiSpeed ={
-  Easy : 500,
-  Medium : 1000,
-  Hard : 1500
+  Easy : {speed : 1, spawnRate: 1500},
+  Medium : {speed : 2, spawnRate: 1000},
+  Hard : {speed : 3, spawnRate: 500},
 }
 
 
@@ -25,10 +26,11 @@ function Game() {
   const location = useLocation();
   const { theme, difficulty } = location.state || {};
   const emojis = emojiThemes[theme];
-  const speed = emojiSpeed[difficulty];
+  const {speed, spawnRate} = emojiSpeed[difficulty];
   const themeChosen = `${theme}-theme`;
   const [fallingEmojis, setFallingEmojis] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
+  const [showGameover, setShowGameover] = useState(false);
 
 
 
@@ -37,27 +39,28 @@ function Game() {
   };
 
   const [score, setScore] = useState(0);
-  const [highscore, setHighscore] = useState(() => {
-      const storedHighscore = localStorage.getItem('highScore');
-        return storedHighscore ? parseInt(storedHighscore, 10) : 0;
-  });
+  const highScore = localStorage.getItem("highScore") || 0;
+    if (score > highScore) {
+        localStorage.setItem("highScore", score);
+    }
 
   const handleEmojiClick  = (emojiObj) => {
     if (emojiObj.emoji == targetEmoji ){
       setScore(score+1)
       setFallingEmojis(prev => prev.filter(e => e.id !== emojiObj.id));
-      if (score >= highscore) {
-        setHighscore(score);
-      }
 
     } else {
       setIsGameOver(true)
     }
   }
-
+  
   function resetGame() { // Function to reset the game state
     setScore(0); // Reset the score
     setIsGameOver(false);
+    setShowGameover(false);
+    setShowSettings(false);
+    setFallingEmojis([]);
+    setTargetEmoji(getRandomEmoji(emojis));
   };
 
 
@@ -74,24 +77,33 @@ function Game() {
         y: 0
       };
       setFallingEmojis(prev => [...prev, newEmoji]);
-    }, 1000);
+    }, spawnRate);
   
     return () => clearInterval(spawn);
-  }, []);
+  }, [spawnRate]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFallingEmojis(prev =>
-        prev
-          .map(e => ({ ...e, y: e.y + 2 })) // move down by 2%
-          .filter(e => e.y < 100)          // remove if off-screen
-      );
+        setFallingEmojis(prev => {
+            const updated = prev.map(e => ({ ...e, y: e.y + speed }));
+            const missedTarget = updated.find(e => e.emoji === targetEmoji && e.y >= 100);
+            if (missedTarget) {
+                setIsGameOver(true);
+              return [];
+            }
+            return updated.filter(e => e.y < 100);
+          });
     }, 50);
   
     return () => clearInterval(interval);
-  }, []);
+  }, [speed]);
 
-  
+  useEffect(() => {
+    if (isGameOver) {
+      setShowGameover(true);
+    }
+  }, [isGameOver]);
+
   return (
     <div className={`Game ${themeChosen}`}>
         {fallingEmojis.map(e => (
@@ -110,13 +122,24 @@ function Game() {
             >
                 {e.emoji}
             </div>
-            ))}
+        ))}
 
+        {isGameOver && (
+            <GameOverModal
+                score={score}
+                highScore={highScore}
+                show={showGameover}
+                onClose={() => setShowGameover(false)}
+                onReset={resetGame}
+
+            />)
+        }
+        
       <Container fluid>
         <Row className="justify-content-md-center">
           <Col className="text-start">
             <h2 className="score">Score: {score}</h2>
-            <h2 className="highscore">High Score: {highscore}</h2>
+            <h2 className="highscore">High Score: {highScore}</h2>
           </Col>
           <Col className="text-center">
             <div className='score' style={{fontSize: '3rem'}}> Catch the {targetEmoji} !</div>
@@ -131,8 +154,7 @@ function Game() {
         <SettingsModal
           show={showSettings}
           onClose={() => setShowSettings(false)}
-          theme={theme}
-          difficulty={difficulty}
+          onReset={resetGame}
         />
 
       </Container>
