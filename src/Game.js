@@ -80,6 +80,14 @@ function Game() {
             </span>
           </Col>
         </Row>
+
+        <SettingsModal
+          show={showSettings}
+          onClose={() => setShowSettings(false)}
+          theme={theme}
+          difficulty={difficulty}
+        />
+
       </Container>
    </div>
 
