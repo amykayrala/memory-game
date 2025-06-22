@@ -10,6 +10,33 @@ function Home() {
   const [difficulty, setDifficulty] = useState('Difficulty');
   const navigate = useNavigate();
 
+  // ----------- EMOJI BLAST ---------------
+  const emojis = ['😎', '😋', '🥳', '🤠', '😛', '😀'];
+
+  // create an array of emojis for the blast effect
+  // each emoji will have a random position, duration, and emoji type
+  const createBlastEmojis = () => {
+    return Array.from({ length: 20 }).map((_, i) => {
+      const angle = Math.random() * 360;
+      const distance = Math.random() * 350 + 50; // how far they go out from the center
+      const x = Math.cos(angle) * distance; 
+      const y = Math.sin(angle) * distance; 
+      const duration = Math.random() * 1 + 1.5; 
+
+      return {
+        id: i, // unique id for each emoji
+        // randomly select an emoji from the emojis
+        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        x, 
+        y,
+        duration
+      };
+    });
+  };
+
+  const [blastEmojis] = useState(createBlastEmojis);
+  // -------------------------------------
+
   const handleChangeTheme = (e) => {
     setTheme(e.target.value);
   };
@@ -25,6 +52,23 @@ function Home() {
 
   return (
     <div className="Home">
+
+      <div className="blast-container">
+          {blastEmojis.map(({ id, emoji, x, y, duration }) => (
+            <span
+              key={id}
+              className="blast-emoji"
+              style={{
+                '--x': `${x}px`,
+                '--y': `${y}px`,
+                animationDuration: `${duration}s`
+              }}
+            >
+              {emoji}
+            </span>
+          ))}
+      </div>
+
         <h1 className="App-header">Emoji </h1>
         <h1 className="App-header">Blast</h1>
 
