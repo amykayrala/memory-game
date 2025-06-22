@@ -14,7 +14,7 @@ const emojiThemes = { // Define color themes with arrays of colors
 };
 
 const emojiSpeed ={
-  Easy : {speed : 1, spawnRate: 1500},
+  Easy : {speed : 1, spawnRate: 1200},
   Medium : {speed : 2, spawnRate: 1000},
   Hard : {speed : 2.5, spawnRate: 500},
 }
@@ -117,6 +117,7 @@ function Game() {
                 top: `${e.y}%`,
                 left: `${e.x}%`,
                 fontSize: '4rem',
+                margin: '20px',
                 cursor: 'pointer',
                 userSelect: 'none',
                 transition: 'top 0.05s linear',
@@ -138,7 +139,7 @@ function Game() {
         }
         
       <Container fluid>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center" style={{ pointerEvents: 'none' }}>
           <Col className="text-start">
             <h2 className="score">Score: {score}</h2>
             <h2 className="highscore">High Score: {highScore}</h2>

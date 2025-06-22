@@ -69,8 +69,8 @@ function Home() {
           ))}
       </div>
 
-        <h1 className="App-header">Emoji </h1>
-        <h1 className="App-header">Blast</h1>
+        <h1 className="App-header" style={{ pointerEvents: 'none' }}>Emoji </h1>
+        <h1 className="App-header" style={{ pointerEvents: 'none' }}>Blast</h1>
 
         <br></br>
         
