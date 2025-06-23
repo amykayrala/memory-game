@@ -16,7 +16,7 @@ const emojiThemes = { // Define color themes with arrays of colors
 const emojiSpeed ={
   Easy : {speed : 1, spawnRate: 1200},
   Medium : {speed : 2, spawnRate: 1000},
-  Hard : {speed : 2.5, spawnRate: 500},
+  Hard : {speed : 2, spawnRate: 500},
 }
 
 
