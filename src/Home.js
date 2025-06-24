@@ -3,12 +3,16 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiInfo } from 'react-icons/fi';
+import InfoModal from './InfoModal';
+import { Container, Row, Col } from 'react-bootstrap';
 
 
 function Home() {
   const [theme, setTheme] = useState('Theme');
   const [difficulty, setDifficulty] = useState('Difficulty');
   const navigate = useNavigate();
+  const [showInfo, setShowInfo] = useState(false);
 
   // ----------- EMOJI BLAST ---------------
   const emojis = ['😎', '😋', '🥳', '🤠', '😛', '😀'];
@@ -52,6 +56,15 @@ function Home() {
 
   return (
     <div className="Home" style={{ pointerEvents: 'none' }}>
+          <div className="info" style={{ pointerEvents: 'auto' }}>
+            <span onClick={() => setShowInfo(true)} style={{ cursor: 'pointer' }}>
+              <FiInfo style={{ fontSize: '2rem', marginRight: '10px', marginTop: '10px', color: '#FE6474' }} />
+            </span>
+            <InfoModal
+                show={showInfo}
+                onClose={() => setShowInfo(false)}
+              />
+          </div>
 
       <div className="blast-container"  >
           {blastEmojis.map(({ id, emoji, x, y, duration }) => (
